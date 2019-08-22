@@ -14,6 +14,10 @@ const commentSchema = new Schema({
   orgId: {
     type: Schema.Types.ObjectId,
     required: true
+  },
+  deleted: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true })
 
