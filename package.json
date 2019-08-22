@@ -1,0 +1,26 @@
+{
+  "name": "OrgCommNodeK8",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:gregtandiono/OrgCommNodeK8.git",
+  "author": "Gregory Tandiono <gregtandiono@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.0",
+    "nock": "^10.0.6",
+    "nyc": "^14.1.1",
+    "sinon": "^7.4.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "config": "^3.2.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "faker": "^4.1.0",
+    "helmet": "^3.20.0",
+    "mongoose": "^5.6.10"
+  }
+}
