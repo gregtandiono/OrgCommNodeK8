@@ -20,8 +20,8 @@ const memberSchema = new Schema({
     type: Number,
     default: 0
   },
-  orgId: {
-    type: Schema.Types.ObjectId,
+  org: {
+    type: String,
     required: true
   }
 }, { timestamps: true })

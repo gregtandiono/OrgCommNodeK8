@@ -7,7 +7,7 @@ let options = {
   useFindAndModify: false
 }
 
-mongoose.connect(config.mongodb, options)
+mongoose.connect(config.db.connString, options)
 mongoose.Promise = global.Promise
 
 module.exports = mongoose

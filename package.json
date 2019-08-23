@@ -5,13 +5,22 @@
   "repository": "git@github.com:gregtandiono/OrgCommNodeK8.git",
   "author": "Gregory Tandiono <gregtandiono@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "NODE_ENV=test ./node_modules/mocha/bin/_mocha --exit"
+  },
+  "standard": {
+    "env": [
+      "mocha"
+    ]
+  },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "mocha": "^6.2.0",
     "nock": "^10.0.6",
     "nyc": "^14.1.1",
-    "sinon": "^7.4.1"
+    "sinon": "^7.4.1",
+    "standard": "^14.0.0"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -21,6 +30,8 @@
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "helmet": "^3.20.0",
-    "mongoose": "^5.6.10"
+    "mongoose": "^5.6.10",
+    "nanoid": "^2.0.3",
+    "winston": "^3.2.1"
   }
 }
