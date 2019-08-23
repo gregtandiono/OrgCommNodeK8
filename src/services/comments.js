@@ -4,8 +4,7 @@ const Comment = require('../models/comment')
 class Comments {
   async list (req, res) {
     try {
-      await utils.validateOrg(req, res)
-
+      await utils.validateOrg(req)
       const comments = await Comment.find({ org: req.params.orgName })
       res.status(200).json(comments)
     } catch (error) {
@@ -15,7 +14,7 @@ class Comments {
 
   async create (req, res) {
     try {
-      await utils.validateOrg(req, res)
+      await utils.validateOrg(req)
       await Comment.create(req.body)
       res.sendStatus(200)
     } catch (error) {
@@ -25,7 +24,7 @@ class Comments {
 
   async remove (req, res) {
     try {
-      await utils.validateOrg(req, res)
+      await utils.validateOrg(req)
       await Comment.update(
         { org: req.params.orgName },
         { $set: { deleted: true } }
