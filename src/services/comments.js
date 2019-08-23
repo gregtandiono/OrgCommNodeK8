@@ -1,5 +1,6 @@
 const utils = require('./utils')
 const Comment = require('../models/comment')
+const logger = require('../logger')
 
 class Comments {
   async list (req, res) {
@@ -8,6 +9,7 @@ class Comments {
       const comments = await Comment.find({ org: req.params.orgName, deleted: false })
       res.status(200).json(comments)
     } catch (error) {
+      logger.error(`Comments.list ${error.toString()}`)
       res.status(400).send({ message: error.toString() })
     }
   }
