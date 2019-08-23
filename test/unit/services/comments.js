@@ -43,7 +43,7 @@ describe('Comment service', () => {
       const commentModelStub = stub(Comment, 'find')
       const orgModelStub = stub(Org, 'findOne')
 
-      commentModelStub.withArgs({ org: orgName }).returns(mockCommentResult)
+      commentModelStub.withArgs({ org: orgName, deleted: false }).returns(mockCommentResult)
       orgModelStub.withArgs({ name: orgName }).returns({ name: orgName })
 
       await comments.list(req, res)

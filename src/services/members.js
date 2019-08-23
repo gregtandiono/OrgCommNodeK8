@@ -6,7 +6,7 @@ class Members {
     try {
       await utils.validateOrg(req)
 
-      const members = await Member.find({ org: req.params.orgName })
+      const members = await Member.find({ org: req.params.orgName }).sort({ followers: -1 })
       res.status(200).json(members)
     } catch (error) {
       res.status(400).send({ message: error.toString() })

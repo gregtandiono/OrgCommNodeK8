@@ -1,4 +1,5 @@
 
+const _ = require('lodash')
 const chai = require('chai')
 const sinon = require('sinon')
 const fixtures = require('../../fixtures')
@@ -48,6 +49,8 @@ describe('Member service', () => {
       const req = mockRequest({ orgName })
       const res = mockResponse()
       const mockMemberResult = fixtures.members.filter(member => member.org === orgName)
+      // mock mongodb desc sort
+      mockMemberResult.sort((a, b) => (a.followers > b.followers ? -1 : 1))
 
       const memberModelStub = stub(Member, 'find')
       const orgModelStub = stub(Org, 'findOne')
