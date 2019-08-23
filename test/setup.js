@@ -1,6 +1,5 @@
-const chaiHttp = require('chai-http')
-const config = require('config')
 const chai = require('chai')
+const chaiHttp = require('chai-http')
 
 const db = require('../src/db')
 const Org = require('../src/models/org')

@@ -7,7 +7,7 @@ class Comments {
       await this.validateOrg(req, res)
 
       const comments = await Comment.find({ org: req.params.orgName })
-      res.json(comments)
+      res.status(200).json(comments)
     } catch (err) {
       res.status(400).send({ message: JSON.stringify(err) })
     }
