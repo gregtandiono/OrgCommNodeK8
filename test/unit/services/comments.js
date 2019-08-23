@@ -19,6 +19,7 @@ const mockResponse = () => {
   res.status = sinon.stub().returns(res)
   res.json = sinon.stub().returns(res)
   res.send = sinon.stub().returns(res)
+  res.sendStatus = sinon.stub().returns(res)
 
   return res
 }
@@ -59,15 +60,12 @@ describe('Comment service', () => {
       const req = mockRequest()
       const res = mockResponse()
 
-      const commentModelStub = sinon.stub(Comment, 'find')
       const orgModelStub = sinon.stub(Org, 'findOne')
 
       orgModelStub.yields()
-      commentModelStub.yields()
 
       await comments.list(req, res)
       orgModelStub.restore()
-      commentModelStub.restore()
 
       assert.isTrue(res.status.calledWith(400))
       assert.isTrue(res.send.calledOnceWith(
@@ -80,15 +78,124 @@ describe('Comment service', () => {
       const req = mockRequest({ orgName })
       const res = mockResponse()
 
-      const commentModelStub = sinon.stub(Comment, 'find')
       const orgModelStub = sinon.stub(Org, 'findOne')
 
       orgModelStub.withArgs({ name: orgName }).returns(null)
-      commentModelStub.yields()
 
       await comments.list(req, res)
       orgModelStub.restore()
+
+      assert.isTrue(res.status.calledWith(400))
+      assert.isTrue(res.send.calledOnceWith(
+        match({ message: 'Error: org does not exist' })
+      ))
+    })
+  })
+
+  describe('Comments.create', () => {
+    it('should respond a 200 after successfully added a comment', async () => {
+      const orgName = 'ecorp'
+      const commentFixtures = fixtures.comments.filter(comment => comment.org === orgName)
+
+      const req = mockRequest({ orgName }, commentFixtures[0])
+      const res = mockResponse()
+
+      const commentModelStub = sinon.stub(Comment, 'create')
+      const orgModelStub = sinon.stub(Org, 'findOne')
+
+      orgModelStub.withArgs({ name: orgName }).returns({ name: orgName })
+      commentModelStub.withArgs(commentFixtures[0]).returns()
+
+      await comments.create(req, res)
+      orgModelStub.restore()
       commentModelStub.restore()
+
+      assert.isTrue(res.sendStatus.calledWith(200))
+    })
+
+    it('should throw a 400 status if no org name is found in the request param', async () => {
+      const req = mockRequest()
+      const res = mockResponse()
+
+      const orgModelStub = sinon.stub(Org, 'findOne')
+      orgModelStub.yields()
+
+      await comments.create(req, res)
+      orgModelStub.restore()
+
+      assert.isTrue(res.status.calledWith(400))
+      assert.isTrue(res.send.calledOnceWith(
+        match({ message: 'Error: org name missing from param' })
+      ))
+    })
+
+    it('should throw a 400 status if the org does not exist', async () => {
+      const orgName = 'orgThatDoesNotExist'
+      const req = mockRequest({ orgName })
+      const res = mockResponse()
+
+      const orgModelStub = sinon.stub(Org, 'findOne')
+
+      orgModelStub.withArgs({ name: orgName }).returns(null)
+
+      await comments.create(req, res)
+      orgModelStub.restore()
+
+      assert.isTrue(res.status.calledWith(400))
+      assert.isTrue(res.send.calledOnceWith(
+        match({ message: 'Error: org does not exist' })
+      ))
+    })
+  })
+
+  describe('Comments.remove', () => {
+    it('should respond a 200 after successfully removing all comments to an organization', async () => {
+      const orgName = 'ecorp'
+      const commentFixtures = fixtures.comments.filter(comment => comment.org === orgName)
+
+      const req = mockRequest({ orgName }, commentFixtures[0])
+      const res = mockResponse()
+
+      const commentModelStub = sinon.stub(Comment, 'update')
+      const orgModelStub = sinon.stub(Org, 'findOne')
+
+      orgModelStub.withArgs({ name: orgName }).returns({ name: orgName })
+      commentModelStub.withArgs({ name: orgName }).returns()
+
+      await comments.create(req, res)
+      orgModelStub.restore()
+      commentModelStub.restore()
+
+      assert.isTrue(res.sendStatus.calledWith(200))
+    })
+
+    it('should throw a 400 status if no org name is found in the request param', async () => {
+      const req = mockRequest()
+      const res = mockResponse()
+
+      const orgModelStub = sinon.stub(Org, 'findOne')
+      orgModelStub.yields()
+
+      await comments.remove(req, res)
+      orgModelStub.restore()
+
+      assert.isTrue(res.status.calledWith(400))
+      assert.isTrue(res.send.calledOnceWith(
+        match({ message: 'Error: org name missing from param' })
+      ))
+    })
+
+    it('should throw a 400 status if the org does not exist', async () => {
+      const orgName = 'orgThatDoesNotExist'
+      const req = mockRequest({ orgName })
+      const res = mockResponse()
+
+      const orgModelStub = sinon.stub(Org, 'findOne')
+
+      orgModelStub.withArgs({ name: orgName }).returns(null)
+
+      await comments.remove(req, res)
+      orgModelStub.restore()
 
       assert.isTrue(res.status.calledWith(400))
       assert.isTrue(res.send.calledOnceWith(
