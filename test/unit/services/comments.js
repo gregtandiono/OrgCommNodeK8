@@ -8,6 +8,7 @@ const Comments = require('../../../src/services/comments')
 const comments = new Comments()
 const assert = chai.assert
 const match = sinon.match
+const stub = sinon.stub
 
 const mockRequest = (params, body) => ({
   params: { orgName: params && params.orgName ? params.orgName : '' },
@@ -16,10 +17,10 @@ const mockRequest = (params, body) => ({
 
 const mockResponse = () => {
   const res = {}
-  res.status = sinon.stub().returns(res)
-  res.json = sinon.stub().returns(res)
-  res.send = sinon.stub().returns(res)
-  res.sendStatus = sinon.stub().returns(res)
+  res.status = stub().returns(res)
+  res.json = stub().returns(res)
+  res.send = stub().returns(res)
+  res.sendStatus = stub().returns(res)
 
   return res
 }
@@ -39,11 +40,11 @@ describe('Comment service', () => {
       const res = mockResponse()
       const mockCommentResult = fixtures.comments.filter(comment => comment.org === orgName)
 
-      const commentModelStub = sinon.stub(Comment, 'find')
-      const orgModelStub = sinon.stub(Org, 'findOne')
+      const commentModelStub = stub(Comment, 'find')
+      const orgModelStub = stub(Org, 'findOne')
 
-      orgModelStub.withArgs({ name: orgName }).returns({ name: orgName })
       commentModelStub.withArgs({ org: orgName }).returns(mockCommentResult)
+      orgModelStub.withArgs({ name: orgName }).returns({ name: orgName })
 
       await comments.list(req, res)
       orgModelStub.restore()
@@ -52,16 +53,15 @@ describe('Comment service', () => {
       assert.isTrue(res.status.calledWith(200))
       assert.isTrue(res.json.calledOnceWith(match.array))
       assert.isTrue(res.json.calledOnceWith(
-        match(orgNameMatcher('ecorp'))
+        match(orgNameMatcher(orgName))
       ))
     })
 
-    it('should throw a 400 if no org name is found in the request params', async () => {
+    it('should throw a 400 if no org name is found in the request param', async () => {
       const req = mockRequest()
       const res = mockResponse()
 
-      const orgModelStub = sinon.stub(Org, 'findOne')
-
+      const orgModelStub = stub(Org, 'findOne')
       orgModelStub.yields()
 
       await comments.list(req, res)
@@ -78,7 +78,7 @@ describe('Comment service', () => {
       const req = mockRequest({ orgName })
       const res = mockResponse()
 
-      const orgModelStub = sinon.stub(Org, 'findOne')
+      const orgModelStub = stub(Org, 'findOne')
 
       orgModelStub.withArgs({ name: orgName }).returns(null)
 
@@ -100,8 +100,8 @@ describe('Comment service', () => {
       const req = mockRequest({ orgName }, commentFixtures[0])
       const res = mockResponse()
 
-      const commentModelStub = sinon.stub(Comment, 'create')
-      const orgModelStub = sinon.stub(Org, 'findOne')
+      const commentModelStub = stub(Comment, 'create')
+      const orgModelStub = stub(Org, 'findOne')
 
       orgModelStub.withArgs({ name: orgName }).returns({ name: orgName })
       commentModelStub.withArgs(commentFixtures[0]).returns()
@@ -117,7 +117,7 @@ describe('Comment service', () => {
       const req = mockRequest()
       const res = mockResponse()
 
-      const orgModelStub = sinon.stub(Org, 'findOne')
+      const orgModelStub = stub(Org, 'findOne')
       orgModelStub.yields()
 
       await comments.create(req, res)
@@ -134,7 +134,7 @@ describe('Comment service', () => {
       const req = mockRequest({ orgName })
       const res = mockResponse()
 
-      const orgModelStub = sinon.stub(Org, 'findOne')
+      const orgModelStub = stub(Org, 'findOne')
 
       orgModelStub.withArgs({ name: orgName }).returns(null)
 
@@ -156,8 +156,8 @@ describe('Comment service', () => {
       const req = mockRequest({ orgName }, commentFixtures[0])
       const res = mockResponse()
 
-      const commentModelStub = sinon.stub(Comment, 'update')
-      const orgModelStub = sinon.stub(Org, 'findOne')
+      const commentModelStub = stub(Comment, 'update')
+      const orgModelStub = stub(Org, 'findOne')
 
       orgModelStub.withArgs({ name: orgName }).returns({ name: orgName })
       commentModelStub.withArgs({ name: orgName }).returns()
@@ -173,7 +173,7 @@ describe('Comment service', () => {
       const req = mockRequest()
       const res = mockResponse()
 
-      const orgModelStub = sinon.stub(Org, 'findOne')
+      const orgModelStub = stub(Org, 'findOne')
       orgModelStub.yields()
 
       await comments.remove(req, res)
@@ -190,7 +190,7 @@ describe('Comment service', () => {
       const req = mockRequest({ orgName })
       const res = mockResponse()
 
-      const orgModelStub = sinon.stub(Org, 'findOne')
+      const orgModelStub = stub(Org, 'findOne')
 
       orgModelStub.withArgs({ name: orgName }).returns(null)
 
