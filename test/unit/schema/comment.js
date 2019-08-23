@@ -51,21 +51,4 @@ describe('Comment', () => {
       throw new Error(err)
     }
   })
-
-  xit('should not be able to record a comment to a non-existing organization', async () => {
-    try {
-      const record = {
-        org: 'orgThatDoesNotExist',
-        content: 'yeap, this is my awesome comment'
-      }
-
-      await Comment.create(record)
-      const newlyAddedComment = await Comment.findOne(record)
-      console.log(newlyAddedComment)
-      // expect(newlyAddedComment.org).to.equal(record.org)
-      // expect(newlyAddedComment.content).to.equal(record.content)
-    } catch (err) {
-      console.log(err)
-    }
-  })
 })

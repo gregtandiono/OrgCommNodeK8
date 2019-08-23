@@ -8,8 +8,8 @@ class Comments {
 
       const comments = await Comment.find({ org: req.params.orgName })
       res.status(200).json(comments)
-    } catch (err) {
-      res.status(400).send({ message: JSON.stringify(err) })
+    } catch (error) {
+      res.status(400).send({ message: error.toString() })
     }
   }
 
@@ -18,8 +18,8 @@ class Comments {
       await this.validateOrg(req, res)
       await Comment.create(req.body)
       res.sendStatus(200)
-    } catch (err) {
-      res.status(400).send({ message: JSON.stringify(err) })
+    } catch (error) {
+      res.status(400).send({ message: error.toString() })
     }
   }
 
@@ -31,17 +31,17 @@ class Comments {
         { $set: { deleted: true } }
       )
       res.sendStatus(200)
-    } catch (err) {
-      res.status(400).send({ message: JSON.stringify(err) })
+    } catch (error) {
+      res.status(400).send({ message: error.toString() })
     }
   }
 
   async validateOrg (req, res) {
     const { orgName } = req.params
-    if (!orgName) return res.status(400).send({ message: 'org name missing from your request' })
+    if (!orgName) throw new Error('org name missing from param')
 
     const org = await Org.findOne({ name: orgName })
-    if (!org) return res.status(400).send({ message: 'org does not exist' })
+    if (!org) throw new Error('org does not exist')
   }
 }
 
