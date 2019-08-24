@@ -27,7 +27,7 @@ go to http://localhost:1337 to verify that the container is running.
 
 By default, the database has been pre-populated with a set of organizations, comments and members.
 
-Available organizations to query from:
+**Available organizations** to query from:
 - **fsociety**
 - **ecorp**
 
@@ -145,7 +145,6 @@ yarn test
 
 If you're going to develop on your local machine, it is recommended that you use tools like [nodemon ](https://nodemon.io/) for `watch` or `reload`.
 
-Ex:
 ```
 nodemon index.js
 ```
