@@ -19,7 +19,7 @@ docker-compose up
 docker-compose up -d
 ```
 
-**Docker compose** will pull & build both the project and the mongodb image from docker hub. After compose has successfully built the images,
+**Docker compose** will pull & build both the project and the mongodb image from docker hub. After *compose* has successfully built the images,
 go to http://localhost:1337 to verify that the container is running.
 
 
@@ -121,10 +121,12 @@ BODY:
 
 ## Build the project locally
 
-You will need a copy of `default.json` configuration and adjust the config file to fit your local dev environment:
+You will need a copy of `default.json` in `/config` dir: 
 ```bash
 cp ./config/default.sample.json ./config/default.json
 ```
+and adjust the config file to fit your local dev environment.
+
 Install dependencies:
 
 ```bash
@@ -143,7 +145,7 @@ Run unit and integration tests:
 yarn test
 ```
 
-If you're going to develop on your local machine, it is recommended that you use tools like [nodemon ](https://nodemon.io/) for `watch` or `reload`.
+If you're going to develop on your local machine, it is recommended that you use tools like [nodemon](https://nodemon.io/) for `watch` or `reload`.
 
 ```
 nodemon index.js
