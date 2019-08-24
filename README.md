@@ -119,7 +119,7 @@ BODY:
 ]
 ```
 
-## Build the project locally
+## Build for Local Development
 
 Install dependencies:
 
