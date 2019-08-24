@@ -1,7 +1,0 @@
-{
-  "host": "localhost",
-  "port": 1337,
-  "db": {
-    "connString": "mongodb://mongo:27017/orgcommnode"
-  }
-}
