@@ -71,7 +71,7 @@ describe('Member service', () => {
       ))
     })
 
-    it('should throw a 400 if no org name is found in the request param', async () => {
+    it('should throw a 400 status if no org name is found in the request param', async () => {
       const req = mockRequest()
       const res = mockResponse()
 
@@ -87,7 +87,7 @@ describe('Member service', () => {
       ))
     })
 
-    it('should throw a 400 if no org name is found in the request param', async () => {
+    it('should throw a 400 status if the org does not exist', async () => {
       const orgName = 'orgThatDoesNotExist'
       const req = mockRequest({ orgName })
       const res = mockResponse()
