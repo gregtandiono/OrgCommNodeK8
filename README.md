@@ -17,9 +17,6 @@ docker-compose up
 
 # to run in `detached` mode:
 docker-compose up -d
-
-# you can also build from compose:
-docker-compose build
 ```
 
 **Docker compose** will pull & build both the project and the mongodb image from docker hub. After *compose* has successfully built the images,
@@ -153,3 +150,11 @@ If you're going to develop on your local machine, it is recommended that you use
 ```
 nodemon index.js
 ```
+
+To build the docker image locally:
+```
+docker build -t orgcommnode-rest .
+```
+You can replace the `orgcommnode-rest` tag with any name you want.
+
+
