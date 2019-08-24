@@ -121,12 +121,6 @@ BODY:
 
 ## Build the project locally
 
-You will need a copy of `default.json` in `/config` dir: 
-```bash
-cp ./config/default.sample.json ./config/default.json
-```
-and adjust the config file to fit your local dev environment.
-
 Install dependencies:
 
 ```bash
@@ -151,7 +145,19 @@ If you're going to develop on your local machine, it is recommended that you use
 nodemon index.js
 ```
 
-To build the docker image locally:
+### Build docker image
+
+Before you do, you need to create a production config `/config/production.json`:
+```json
+{
+  "host": "localhost",
+  "port": 1337,
+  "db": {
+    "connString": "mongodb://mongo:27017/orgcommnode"
+  }
+}
+```
+Then run:
 ```
 docker build -t orgcommnode-rest .
 ```
