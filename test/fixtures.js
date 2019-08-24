@@ -46,23 +46,23 @@ module.exports = {
   ],
   comments: [
     {
-      content: 'I can hack this...',
+      comment: 'I can hack this...',
       org: 'ecorp'
     },
     {
-      content: 'Angela should quit allsafe',
+      comment: 'Angela should quit allsafe',
       org: 'ecorp'
     },
     {
-      content: 'i miss qwerty...',
+      comment: 'i miss qwerty...',
       org: 'fsociety'
     },
     {
-      content: 'where is darlene?',
+      comment: 'where is darlene?',
       org: 'fsociety'
     },
     {
-      content: 'torrent file is deleted',
+      comment: 'torrent file is deleted',
       org: 'fsociety',
       deleted: true
     }
