@@ -40,13 +40,13 @@ describe('Comment', () => {
     try {
       const record = {
         org: 'fsociety',
-        content: 'yeap, this is my awesome comment'
+        comment: 'yeap, this is my awesome comment'
       }
 
       await Comment.create(record)
       const newlyAddedComment = await Comment.findOne(record)
       expect(newlyAddedComment.org).to.equal(record.org)
-      expect(newlyAddedComment.content).to.equal(record.content)
+      expect(newlyAddedComment.comment).to.equal(record.comment)
     } catch (err) {
       throw new Error(err)
     }

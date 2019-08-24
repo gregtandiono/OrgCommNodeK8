@@ -8,4 +8,8 @@ const validateOrg = async (req) => {
   if (!org) throw new Error('org does not exist')
 }
 
-module.exports = { validateOrg }
+const errorStringifier = (error) => {
+  return typeof (error) !== 'string' ? error.toString() : error
+}
+
+module.exports = { validateOrg, errorStringifier }

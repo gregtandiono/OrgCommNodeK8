@@ -9,21 +9,26 @@ class Comments {
       const comments = await Comment.find({ org: req.params.orgName, deleted: false })
       res.status(200).json(comments)
     } catch (error) {
-      logger.error(`Comments.list ${error.toString()}`)
-      res.status(400).send({ message: error.toString() })
+      const errStr = utils.errorStringifier(error)
+      logger.error(`Comments.list ${errStr}`)
+      res.status(400).send({ message: errStr })
     }
   }
 
   async create (req, res) {
     try {
       await utils.validateOrg(req)
+      if (!req.body.comment) throw new Error('comment is required in the request body')
+
       await Comment.create({
-        content: req.body.content,
+        comment: req.body.comment,
         org: req.params.orgName
       })
       res.sendStatus(200)
     } catch (error) {
-      res.status(400).send({ message: error.toString() })
+      const errStr = utils.errorStringifier(error)
+      logger.error(`Comments.create ${errStr}`)
+      res.status(400).send({ message: errStr })
     }
   }
 
@@ -36,7 +41,9 @@ class Comments {
       )
       res.sendStatus(200)
     } catch (error) {
-      res.status(400).send({ message: error.toString() })
+      const errStr = utils.errorStringifier(error)
+      logger.error(`Comments.remove ${errStr}`)
+      res.status(400).send({ message: errStr })
     }
   }
 }

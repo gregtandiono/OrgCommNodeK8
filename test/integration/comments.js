@@ -25,19 +25,28 @@ describe('Comment integration', () => {
   describe('POST /orgs/:orgName/comments', () => {
     it('should add a comment to an existing organization', async () => {
       const orgName = 'fsociety'
-      const content = 'I can totally bring ecorp down, Elliot.'
+      const comment = 'I can totally bring ecorp down, Elliot.'
 
       const response = await chai.request(app)
         .post(`/orgs/${orgName}/comments`)
-        .send({ content })
+        .send({ comment })
       expect(response.status).to.equal(200)
 
       // verify addition
       const commentsResponse = await chai.request(app)
         .get(`/orgs/${orgName}/comments`)
 
-      const expectedResults = commentsResponse.body.filter(comment => comment.content === content)
-      expect(expectedResults[0].content).to.equal(content)
+      const expectedResults = commentsResponse.body.filter(item => item.comment === comment)
+      expect(expectedResults[0].comment).to.equal(comment)
+    })
+
+    it('should throw an error if the request body is missing `comment`', async () => {
+      const response = await chai.request(app)
+        .post('/orgs/fsociety/comments')
+        .send()
+
+      expect(response.status).to.equal(400)
+      expect(response.body).to.deep.equal({ message: 'Error: comment is required in the request body' })
     })
 
     it('should throw an error if the organization requested does not exist', async () => {

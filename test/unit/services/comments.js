@@ -113,6 +113,27 @@ describe('Comment service', () => {
       assert.isTrue(res.sendStatus.calledWith(200))
     })
 
+    it('should throw a 400 status if no comment is found in the request body', async () => {
+      const orgName = 'ecorp'
+      const req = mockRequest({ orgName }, {})
+      const res = mockResponse()
+
+      const orgModelStub = stub(Org, 'findOne')
+      const commentModelStub = stub(Comment, 'create')
+
+      orgModelStub.withArgs({ name: orgName }).returns({ name: orgName })
+      commentModelStub.withArgs({}).returns()
+
+      await comments.create(req, res)
+      orgModelStub.restore()
+
+      assert.isTrue(res.status.calledWith(400))
+      assert.isTrue(res.send.calledOnceWith(
+        match({ message: 'Error: comment is required in the request body' })
+      ))
+
+    })
+
     it('should throw a 400 status if no org name is found in the request param', async () => {
       const req = mockRequest()
       const res = mockResponse()
