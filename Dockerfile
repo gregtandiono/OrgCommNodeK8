@@ -3,6 +3,8 @@ FROM node:8
 WORKDIR /usr/src/app
 COPY . .
 
-RUN npm install
+RUN yarn 
 
-CMD [ "npm", "start:prod" ]
+EXPOSE 1337
+
+CMD yarn start:prod

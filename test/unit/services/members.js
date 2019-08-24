@@ -1,5 +1,4 @@
 
-const _ = require('lodash')
 const chai = require('chai')
 const sinon = require('sinon')
 const fixtures = require('../../fixtures')

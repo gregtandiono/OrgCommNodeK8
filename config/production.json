@@ -1,5 +1,5 @@
 {
   "db": {
-    "connString": "mongodb://mongodb:27017/orgcommnode"
+    "connString": "mongodb://mongo:27017/orgcommnode"
   }
 }

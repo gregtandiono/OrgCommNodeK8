@@ -1,4 +1,4 @@
-version: "2"
+version: "3.7"
 services:
   web:
     build: .
@@ -8,5 +8,3 @@ services:
       - mongo
   mongo:
     image: mongo
-    ports:
-      - "27017:27017"
