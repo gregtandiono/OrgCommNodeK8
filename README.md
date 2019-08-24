@@ -17,6 +17,9 @@ docker-compose up
 
 # to run in `detached` mode:
 docker-compose up -d
+
+# you can also build from compose:
+docker-compose build
 ```
 
 **Docker compose** will pull & build both the project and the mongodb image from docker hub. After *compose* has successfully built the images,
