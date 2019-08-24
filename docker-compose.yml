@@ -2,7 +2,6 @@ version: "3.7"
 services:
   web:
     image: gregtandiono/orgcommnode-rest:1
-    build: .
     ports:
       - "1337:1337"
     depends_on:
