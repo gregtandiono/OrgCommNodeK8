@@ -1,5 +1,6 @@
 # OrgCommNodeK8
-*despite having a `k8` in the name, this project does not actually utilize K8 orchestration.*
+
+*Despite having a `k8` in the name, this project does not actually utilize K8 orchestration.*
 
 Pre-requisites:
 - [NodeJS](https://nodejs.org/en/)
@@ -22,7 +23,7 @@ docker-compose up -d
 docker-compose down
 ```
 
-**Docker compose** will pull & build both the project and the mongodb image from docker hub. After *compose* has successfully built the images,
+**Docker compose** will pull & build both the project and the **mongodb** image from docker hub. After *compose* has successfully built the images,
 go to http://localhost:1337 to verify that the container is running.
 
 
