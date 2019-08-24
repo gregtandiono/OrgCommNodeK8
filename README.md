@@ -10,7 +10,7 @@ Pre-requisites:
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
 
-## Run the project via Docker Compose
+## Run the project Docker Container via Docker Compose
 
 ```bash
 # In the project root directory, run:
