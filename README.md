@@ -149,8 +149,13 @@ yarn test:coverage
 ```
 
 If you're going to develop on your local machine, it is recommended that you use tools like [nodemon](https://nodemon.io/) for `watch` or `reload`.
+However, it is recommended that you run the seed script first to get some data in your mongodb database.
 
-```
+```bash
+# Run seed script (recommended)
+node ./seed.js
+
+# Run server
 nodemon index.js
 ```
 
