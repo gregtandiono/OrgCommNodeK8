@@ -140,8 +140,12 @@ yarn start
 Running `yarn start` will run a seed script via `node seed.js` to insert default set of collections and documents to your local mongodb db.
 
 Run unit and integration tests:
-```
+```bash
+# run without nyc coverage
 yarn test
+
+# run with nyc coverage report
+yarn test:coverage
 ```
 
 If you're going to develop on your local machine, it is recommended that you use tools like [nodemon](https://nodemon.io/) for `watch` or `reload`.
